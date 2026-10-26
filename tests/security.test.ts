@@ -1,0 +1,1 @@
+import{describe,it,expect}from"vitest";import{hasPermission,PERMISSIONS}from"../packages/security/src/permissions";describe("RBAC",()=>{it("coder can approve coding",()=>expect(hasPermission("CODER",PERMISSIONS.codingApprove)).toBe(true));it("auditor cannot upload notes",()=>expect(hasPermission("AUDITOR",PERMISSIONS.noteUpload)).toBe(false))})
