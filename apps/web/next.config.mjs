@@ -1,0 +1,1 @@
+const c={output:"standalone"};export default c;

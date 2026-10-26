@@ -1,1 +1,0 @@
-import{PrismaClient}from"@prisma/client";const db=new PrismaClient();export async function audit(x:{practiceId?:string;userId?:string;encounterId?:string;eventType:string;entityType:string;entityId?:string;requestId?:string;metadata?:Record<string,unknown>}){await db.auditLog.create({data:{...x,metadata:x.metadata??{}}})}
