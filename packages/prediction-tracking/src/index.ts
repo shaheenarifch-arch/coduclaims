@@ -1,0 +1,1 @@
+export function redactPredictionLog(x:Record<string,unknown>){const{features,...safe}=x;return safe}
