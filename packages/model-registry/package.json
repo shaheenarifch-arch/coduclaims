@@ -1,0 +1,6 @@
+{
+  "name": "@codepilot/model-registry",
+  "version": "0.7.0",
+  "type": "module",
+  "main": "src/index.ts"
+}
