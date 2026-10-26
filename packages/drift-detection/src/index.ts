@@ -1,0 +1,1 @@
+export function classifyDrift(score:number,watch=.15,alert=.3){if(!Number.isFinite(score)||score<0)throw new Error("INVALID_DRIFT_SCORE");return score>=alert?"ALERT":score>=watch?"WATCH":"NORMAL"}
