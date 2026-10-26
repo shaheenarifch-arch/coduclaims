@@ -1,0 +1,2 @@
+# Compliance boundary
+This starter is not certified as HIPAA compliant and must not be used with real PHI as delivered. Production use requires organizational risk analysis, policies, training, BAAs, incident response, backup/recovery, vulnerability management, retention rules, access reviews, and legal/compliance approval. CPT content is maintained by the American Medical Association; obtain appropriate licensing before distributing CPT descriptions or code sets.

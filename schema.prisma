@@ -1,0 +1,139 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+enum UserRole { SUPER_ADMIN PRACTICE_ADMIN MANAGER CODER PROVIDER AUDITOR }
+enum EncounterStatus { UPLOADED ANALYZING AWAITING_REVIEW APPROVED REJECTED FAILED }
+enum SuggestionType { ICD10 CPT HCPCS }
+enum ReviewStatus { PENDING APPROVED REJECTED MODIFIED }
+
+model Practice {
+  id String @id @default(uuid())
+  name String
+  specialty String?
+  status String @default("ACTIVE")
+  users User[]
+  providers Provider[]
+  encounters Encounter[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model User {
+  id String @id @default(uuid())
+  practiceId String?
+  practice Practice? @relation(fields:[practiceId], references:[id])
+  email String @unique
+  fullName String
+  role UserRole
+  passwordHash String
+  mfaSecretEncrypted String?
+  mfaEnabled Boolean @default(false)
+  failedAttempts Int @default(0)
+  lockedUntil DateTime?
+  sessions UserSession[]
+  reviews CodingReview[]
+  auditLogs AuditLog[]
+  active Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([practiceId, role])
+}
+model UserSession {
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields:[userId], references:[id], onDelete:Cascade)
+  refreshTokenHash String @unique
+  ipHash String?
+  userAgent String?
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime @default(now())
+  @@index([userId, expiresAt])
+}
+model Provider {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  npi String?
+  firstName String
+  lastName String
+  specialty String?
+  status String @default("ACTIVE")
+  encounters Encounter[]
+  createdAt DateTime @default(now())
+  @@unique([practiceId,npi])
+}
+model Encounter {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  providerId String
+  provider Provider @relation(fields:[providerId], references:[id])
+  encounterReference String
+  encounterDate DateTime
+  encounterType String
+  status EncounterStatus @default(UPLOADED)
+  clinicalNotes ClinicalNote[]
+  suggestions CodingSuggestion[]
+  reviews CodingReview[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([practiceId,encounterReference])
+  @@index([practiceId,status,encounterDate])
+}
+model ClinicalNote {
+  id String @id @default(uuid())
+  encounterId String
+  encounter Encounter @relation(fields:[encounterId], references:[id], onDelete:Cascade)
+  noteType String
+  ciphertext String
+  iv String
+  authTag String
+  keyVersion String @default("v1")
+  sha256 String
+  importedAt DateTime @default(now())
+}
+model CodingSuggestion {
+  id String @id @default(uuid())
+  encounterId String
+  encounter Encounter @relation(fields:[encounterId], references:[id], onDelete:Cascade)
+  type SuggestionType
+  code String
+  description String?
+  confidence Float
+  evidence JSON
+  rationale String
+  modelProvider String
+  modelName String
+  modelVersion String?
+  status ReviewStatus @default(PENDING)
+  createdAt DateTime @default(now())
+  @@index([encounterId,type,status])
+}
+model CodingReview {
+  id String @id @default(uuid())
+  encounterId String
+  encounter Encounter @relation(fields:[encounterId], references:[id], onDelete:Cascade)
+  reviewerId String
+  reviewer User @relation(fields:[reviewerId], references:[id])
+  status ReviewStatus
+  notes String?
+  finalCodes JSON
+  reviewedAt DateTime @default(now())
+  @@index([encounterId,status])
+}
+model AuditLog {
+  id String @id @default(uuid())
+  practiceId String?
+  userId String?
+  user User? @relation(fields:[userId], references:[id], onDelete:SetNull)
+  encounterId String?
+  eventType String
+  entityType String
+  entityId String?
+  ipHash String?
+  requestId String?
+  metadata JSON
+  createdAt DateTime @default(now())
+  @@index([practiceId,createdAt])
+  @@index([encounterId,createdAt])
+}
