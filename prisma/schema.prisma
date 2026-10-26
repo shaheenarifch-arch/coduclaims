@@ -1,10 +1,38 @@
-generator client { provider = "prisma-client-js" }
-datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
-enum UserRole { SUPER_ADMIN PRACTICE_ADMIN MANAGER CODER PROVIDER AUDITOR }
-enum EncounterStatus { UPLOADED ANALYZING AWAITING_REVIEW APPROVED REJECTED FAILED }
-enum SuggestionType { ICD10 CPT HCPCS }
-enum ReviewStatus { PENDING APPROVED REJECTED MODIFIED }
+enum UserRole {
+  SUPER_ADMIN
+  PRACTICE_ADMIN
+  MANAGER
+  CODER
+  PROVIDER
+  AUDITOR
+}
+enum EncounterStatus {
+  UPLOADED
+  ANALYZING
+  AWAITING_REVIEW
+  APPROVED
+  REJECTED
+  FAILED
+}
+enum SuggestionType {
+  ICD10
+  CPT
+  HCPCS
+}
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  MODIFIED
+}
 
 model Practice {
   id String @id @default(uuid())
@@ -100,7 +128,7 @@ model CodingSuggestion {
   code String
   description String?
   confidence Float
-  evidence JSON
+  evidence Json
   rationale String
   modelProvider String
   modelName String
@@ -117,7 +145,7 @@ model CodingReview {
   reviewer User @relation(fields:[reviewerId], references:[id])
   status ReviewStatus
   notes String?
-  finalCodes JSON
+  finalCodes Json
   reviewedAt DateTime @default(now())
   @@index([encounterId,status])
 }
@@ -132,7 +160,7 @@ model AuditLog {
   entityId String?
   ipHash String?
   requestId String?
-  metadata JSON
+  metadata Json
   createdAt DateTime @default(now())
   @@index([practiceId,createdAt])
   @@index([encounterId,createdAt])
