@@ -1,0 +1,6 @@
+{
+  "name": "@codepilot/prediction-tracking",
+  "version": "0.7.0",
+  "type": "module",
+  "main": "src/index.ts"
+}
