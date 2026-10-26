@@ -1,0 +1,1 @@
+import{createHash}from"node:crypto";export function featureHash(features:Record<string,unknown>){const normalized=JSON.stringify(Object.fromEntries(Object.entries(features).sort(([a],[b])=>a.localeCompare(b))));return createHash("sha256").update(normalized).digest("hex")}

@@ -3,7 +3,7 @@ generator client {
 }
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
 }
 
 enum UserRole {
@@ -33,6 +33,220 @@ enum ReviewStatus {
   REJECTED
   MODIFIED
 }
+enum GapSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+enum GapStatus {
+  OPEN
+  ACKNOWLEDGED
+  RESOLVED
+  DISMISSED
+}
+enum ClaimStatus {
+  DRAFT
+  ANALYZING
+  NEEDS_REVIEW
+  READY
+  HOLD
+  SUBMITTED
+  ACCEPTED
+  PARTIALLY_PAID
+  PAID
+  DENIED
+  VOID
+}
+enum ClaimRiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+enum FindingSeverity {
+  INFO
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+enum AuthorizationStatus {
+  NOT_CHECKED
+  NOT_REQUIRED
+  REQUIRED_MISSING
+  PRESENT_UNVERIFIED
+  VERIFIED
+  EXPIRED
+  INVALID
+}
+enum RevenueOpportunityStatus {
+  OPEN
+  REVIEWED
+  ACCEPTED
+  DISMISSED
+  RESOLVED
+}
+enum PayerRuleType {
+  AUTHORIZATION
+  COVERAGE
+  MODIFIER
+  FREQUENCY
+  DOCUMENTATION
+  DUPLICATE
+  MEDICAL_NECESSITY
+  OTHER
+}
+enum EHRVendor {
+  EPIC
+  ORACLE_HEALTH
+  ATHENAHEALTH
+  ECLINICALWORKS
+  NEXTGEN
+  OTHER
+}
+enum FHIRConnectionStatus {
+  DRAFT
+  CONFIGURED
+  CONNECTING
+  CONNECTED
+  ERROR
+  DISABLED
+}
+enum FHIRSyncStatus {
+  QUEUED
+  RUNNING
+  SYNCED
+  PARTIAL
+  FAILED
+  SKIPPED
+}
+enum FHIRResourceType {
+  PATIENT
+  PRACTITIONER
+  ENCOUNTER
+  CONDITION
+  PROCEDURE
+  OBSERVATION
+  DIAGNOSTIC_REPORT
+  DOCUMENT_REFERENCE
+  MEDICATION_REQUEST
+}
+enum QueueType {
+  CODING
+  DOCUMENTATION
+  AUTHORIZATION
+  DENIAL
+  APPEAL
+  PAYMENT
+  AR_FOLLOWUP
+  OTHER
+}
+enum WorkPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+enum WorkItemStatus {
+  OPEN
+  ASSIGNED
+  IN_PROGRESS
+  BLOCKED
+  COMPLETED
+  CANCELED
+}
+enum DenialStatus {
+  OPEN
+  UNDER_REVIEW
+  APPEAL_CANDIDATE
+  APPEALED
+  OVERTURNED
+  UPHELD
+  WRITTEN_OFF
+  CLOSED
+}
+enum AppealStatus {
+  DRAFT
+  READY_FOR_REVIEW
+  APPROVED_FOR_SUBMISSION
+  SUBMITTED
+  PAYER_REVIEW
+  WON
+  LOST
+  PARTIAL
+  WITHDRAWN
+}
+enum ReimbursementEventType {
+  PAYMENT
+  ADJUSTMENT
+  REFUND
+  RECOUPMENT
+  WRITE_OFF
+  TRANSFER
+}
+enum AssignmentStrategy {
+  MANUAL
+  ROUND_ROBIN
+  LEAST_LOADED
+  RULE_BASED
+}
+enum ModelCategory {
+  CODING
+  DOCUMENTATION
+  DENIAL_PREDICTION
+  REVENUE_FORECAST
+  APPEAL_FORECAST
+  AUTHORIZATION_PREDICTION
+  PAYMENT_FORECAST
+}
+enum ModelStatus {
+  DRAFT
+  TRAINING
+  VALIDATION
+  APPROVED
+  DEPLOYED
+  RETIRED
+}
+enum TrainingStatus {
+  QUEUED
+  RUNNING
+  COMPLETED
+  FAILED
+  CANCELED
+}
+enum DeploymentEnvironment {
+  DEVELOPMENT
+  STAGING
+  PRODUCTION
+}
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+enum DriftType {
+  DATA_DRIFT
+  PREDICTION_DRIFT
+  FEATURE_DRIFT
+  TARGET_DRIFT
+}
+enum DriftStatus {
+  NORMAL
+  WATCH
+  ALERT
+  RESOLVED
+}
+enum ArtifactType {
+  MODEL
+  BINARY
+  ONNX
+  METRICS
+  TRAINING_LOG
+  FEATURE_MAP
+  EXPLAINER
+  OTHER
+}
 
 model Practice {
   id String @id @default(uuid())
@@ -42,6 +256,20 @@ model Practice {
   users User[]
   providers Provider[]
   encounters Encounter[]
+  claims Claim[]
+  payers Payer[]
+  revenueOpportunities RevenueOpportunity[]
+  fhirConnections FHIRConnection[]
+  patientMappings PatientMapping[]
+  fhirSyncJobs FHIRSyncJob[]
+  workQueues WorkQueue[]
+  workItems WorkItem[]
+  denialCases DenialCase[]
+  reimbursementEvents ReimbursementEvent[]
+  aiModels AIModel[]
+  datasets Dataset[]
+  featureSnapshots FeatureSnapshot[]
+  predictionEvents PredictionEvent[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -60,6 +288,8 @@ model User {
   sessions UserSession[]
   reviews CodingReview[]
   auditLogs AuditLog[]
+  assignedWorkItems WorkItem[]
+  appealsReviewed Appeal[] @relation("AppealReviewer")
   active Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -87,6 +317,8 @@ model Provider {
   specialty String?
   status String @default("ACTIVE")
   encounters Encounter[]
+  qualityMetrics ProviderQualityMetric[]
+  providerSyncs ProviderSync[]
   createdAt DateTime @default(now())
   @@unique([practiceId,npi])
 }
@@ -103,6 +335,12 @@ model Encounter {
   clinicalNotes ClinicalNote[]
   suggestions CodingSuggestion[]
   reviews CodingReview[]
+  documentationGaps DocumentationGap[]
+  documentationScores DocumentationScore[]
+  claims Claim[]
+  revenueOpportunities RevenueOpportunity[]
+  workItems WorkItem[]
+  encounterSyncs EncounterSync[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@unique([practiceId,encounterReference])
@@ -164,4 +402,673 @@ model AuditLog {
   createdAt DateTime @default(now())
   @@index([practiceId,createdAt])
   @@index([encounterId,createdAt])
+}
+
+
+model DocumentationGap {
+  id String @id @default(uuid())
+  encounterId String
+  encounter Encounter @relation(fields:[encounterId], references:[id], onDelete:Cascade)
+  gapType String
+  severity GapSeverity
+  status GapStatus @default(OPEN)
+  message String
+  recommendation String
+  evidence Json
+  ruleId String
+  ruleVersion String
+  createdAt DateTime @default(now())
+  resolvedAt DateTime?
+  @@index([encounterId,severity,status])
+}
+model DocumentationScore {
+  id String @id @default(uuid())
+  encounterId String
+  encounter Encounter @relation(fields:[encounterId], references:[id], onDelete:Cascade)
+  overallScore Int
+  completenessScore Int
+  codingReadinessScore Int
+  complianceReadinessScore Int
+  riskLevel String
+  methodologyVersion String
+  createdAt DateTime @default(now())
+  @@index([encounterId,createdAt])
+}
+model ProviderQualityMetric {
+  id String @id @default(uuid())
+  providerId String
+  provider Provider @relation(fields:[providerId], references:[id], onDelete:Cascade)
+  practiceId String
+  periodStart DateTime
+  periodEnd DateTime
+  averageScore Float
+  notesReviewed Int
+  openGapCount Int
+  highRiskCount Int
+  topGapTypes Json
+  calculatedAt DateTime @default(now())
+  @@unique([providerId,periodStart,periodEnd])
+  @@index([practiceId,periodEnd])
+}
+
+
+model Payer {
+  id String @id @default(uuid())
+  practiceId String?
+  practice Practice? @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  name String
+  payerType String
+  externalPayerId String?
+  active Boolean @default(true)
+  rules PayerRule[]
+  claims Claim[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([practiceId,name])
+  @@index([active,payerType])
+}
+
+model PayerRule {
+  id String @id @default(uuid())
+  payerId String
+  payer Payer @relation(fields:[payerId], references:[id], onDelete:Cascade)
+  ruleType PayerRuleType
+  codeSystem String?
+  codePattern String?
+  title String
+  description String
+  configuration Json
+  effectiveDate DateTime
+  expirationDate DateTime?
+  version String
+  sourceReference String?
+  reviewStatus String @default("DRAFT")
+  active Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([payerId,ruleType,active,effectiveDate])
+}
+
+model Claim {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  encounterId String
+  encounter Encounter @relation(fields:[encounterId], references:[id], onDelete:Cascade)
+  payerId String?
+  payer Payer? @relation(fields:[payerId], references:[id], onDelete:SetNull)
+  claimReference String
+  status ClaimStatus @default(DRAFT)
+  billedAmount Decimal @db.Decimal(12,2)
+  expectedAmount Decimal? @db.Decimal(12,2)
+  diagnosisCodes Json
+  procedureCodes Json
+  modifiers Json @default("[]")
+  placeOfService String?
+  serviceDate DateTime
+  submittedAt DateTime?
+  latestRiskPredictionId String?
+  riskPredictions ClaimRiskPrediction[]
+  findings ClaimFinding[]
+  authorizationChecks AuthorizationCheck[]
+  revenueOpportunities RevenueOpportunity[]
+  workItems WorkItem[]
+  denialCases DenialCase[]
+  reimbursementEvents ReimbursementEvent[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([practiceId,claimReference])
+  @@index([practiceId,status,serviceDate])
+  @@index([payerId,status])
+}
+
+model ClaimRiskPrediction {
+  id String @id @default(uuid())
+  claimId String
+  claim Claim @relation(fields:[claimId], references:[id], onDelete:Cascade)
+  riskScore Int
+  riskLevel ClaimRiskLevel
+  denialProbability Float
+  modelType String
+  modelVersion String
+  featureSnapshot Json
+  explanation Json
+  predictedAt DateTime @default(now())
+  @@index([claimId,predictedAt])
+  @@index([riskLevel,predictedAt])
+}
+
+model ClaimFinding {
+  id String @id @default(uuid())
+  claimId String
+  claim Claim @relation(fields:[claimId], references:[id], onDelete:Cascade)
+  findingType String
+  severity FindingSeverity
+  ruleId String
+  ruleVersion String
+  message String
+  recommendation String
+  evidence Json
+  status String @default("OPEN")
+  createdAt DateTime @default(now())
+  resolvedAt DateTime?
+  @@index([claimId,severity,status])
+}
+
+model AuthorizationCheck {
+  id String @id @default(uuid())
+  claimId String
+  claim Claim @relation(fields:[claimId], references:[id], onDelete:Cascade)
+  authorizationRequired Boolean
+  authorizationPresent Boolean
+  authorizationNumberEncrypted String?
+  status AuthorizationStatus @default(NOT_CHECKED)
+  payerRuleId String?
+  evidence Json
+  checkedAt DateTime @default(now())
+  @@index([claimId,status,checkedAt])
+}
+
+model RevenueOpportunity {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  claimId String?
+  claim Claim? @relation(fields:[claimId], references:[id], onDelete:Cascade)
+  encounterId String?
+  encounter Encounter? @relation(fields:[encounterId], references:[id], onDelete:Cascade)
+  opportunityType String
+  estimatedRevenue Decimal @db.Decimal(12,2)
+  currency String @default("USD")
+  message String
+  evidence Json
+  status RevenueOpportunityStatus @default(OPEN)
+  detectedAt DateTime @default(now())
+  resolvedAt DateTime?
+  @@index([practiceId,status,detectedAt])
+}
+
+
+model FHIRConnection {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  ehrVendor EHRVendor
+  connectionName String
+  fhirBaseUrl String
+  authorizationUrl String?
+  tokenUrl String?
+  clientId String
+  redirectUri String
+  scopes Json
+  launchUrl String?
+  status FHIRConnectionStatus @default(DRAFT)
+  issuer String?
+  metadata Json @default("{}")
+  lastSyncAt DateTime?
+  credentials OAuthCredential[]
+  launchStates SMARTLaunchState[]
+  patientMappings PatientMapping[]
+  encounterSyncs EncounterSync[]
+  providerSyncs ProviderSync[]
+  syncJobs FHIRSyncJob[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([practiceId,connectionName])
+  @@index([practiceId,status])
+  @@index([ehrVendor,status])
+}
+
+model OAuthCredential {
+  id String @id @default(uuid())
+  connectionId String
+  connection FHIRConnection @relation(fields:[connectionId], references:[id], onDelete:Cascade)
+  encryptedAccessToken String
+  encryptedRefreshToken String?
+  encryptedIdToken String?
+  tokenType String @default("Bearer")
+  grantedScopes Json
+  expiresAt DateTime
+  refreshExpiresAt DateTime?
+  keyVersion String @default("v1")
+  revokedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([connectionId,expiresAt,revokedAt])
+}
+
+model SMARTLaunchState {
+  id String @id @default(uuid())
+  connectionId String
+  connection FHIRConnection @relation(fields:[connectionId], references:[id], onDelete:Cascade)
+  stateHash String @unique
+  pkceVerifierEncrypted String
+  launchContext String?
+  requestedScopes Json
+  redirectUri String
+  expiresAt DateTime
+  consumedAt DateTime?
+  createdAt DateTime @default(now())
+  @@index([connectionId,expiresAt])
+}
+
+model PatientMapping {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  connectionId String
+  connection FHIRConnection @relation(fields:[connectionId], references:[id], onDelete:Cascade)
+  externalPatientIdHash String
+  internalPatientReference String
+  sourceSystem EHRVendor
+  fhirVersion String @default("R4")
+  active Boolean @default(true)
+  firstSeenAt DateTime @default(now())
+  lastSyncedAt DateTime?
+  @@unique([connectionId,externalPatientIdHash])
+  @@index([practiceId,active])
+}
+
+model EncounterSync {
+  id String @id @default(uuid())
+  encounterId String
+  encounter Encounter @relation(fields:[encounterId], references:[id], onDelete:Cascade)
+  connectionId String
+  connection FHIRConnection @relation(fields:[connectionId], references:[id], onDelete:Cascade)
+  externalEncounterId String
+  sourceSystem EHRVendor
+  syncStatus FHIRSyncStatus @default(QUEUED)
+  sourceVersionId String?
+  etag String?
+  lastErrorCode String?
+  lastErrorMessageRedacted String?
+  lastSyncedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([connectionId,externalEncounterId])
+  @@index([encounterId,syncStatus])
+  @@index([connectionId,syncStatus,updatedAt])
+}
+
+model ProviderSync {
+  id String @id @default(uuid())
+  providerId String
+  provider Provider @relation(fields:[providerId], references:[id], onDelete:Cascade)
+  connectionId String
+  connection FHIRConnection @relation(fields:[connectionId], references:[id], onDelete:Cascade)
+  externalProviderId String
+  sourceSystem EHRVendor
+  syncStatus FHIRSyncStatus @default(QUEUED)
+  sourceVersionId String?
+  etag String?
+  lastErrorCode String?
+  lastErrorMessageRedacted String?
+  lastSyncedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([connectionId,externalProviderId])
+  @@index([providerId,syncStatus])
+  @@index([connectionId,syncStatus,updatedAt])
+}
+
+model FHIRSyncJob {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  connectionId String
+  connection FHIRConnection @relation(fields:[connectionId], references:[id], onDelete:Cascade)
+  resourceType FHIRResourceType
+  syncMode String
+  status FHIRSyncStatus @default(QUEUED)
+  cursorEncrypted String?
+  requestedById String?
+  recordsRead Int @default(0)
+  recordsCreated Int @default(0)
+  recordsUpdated Int @default(0)
+  recordsRejected Int @default(0)
+  errorSummary Json @default("[]")
+  startedAt DateTime?
+  completedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([practiceId,status,createdAt])
+  @@index([connectionId,resourceType,status])
+}
+
+
+model WorkQueue {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  name String
+  queueType QueueType
+  description String?
+  assignmentStrategy AssignmentStrategy @default(MANUAL)
+  configuration Json @default("{}")
+  active Boolean @default(true)
+  workItems WorkItem[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([practiceId,name])
+  @@index([practiceId,queueType,active])
+}
+model WorkItem {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  queueId String
+  queue WorkQueue @relation(fields:[queueId], references:[id], onDelete:Cascade)
+  claimId String?
+  claim Claim? @relation(fields:[claimId], references:[id], onDelete:Cascade)
+  encounterId String?
+  encounter Encounter? @relation(fields:[encounterId], references:[id], onDelete:Cascade)
+  assignedUserId String?
+  assignedUser User? @relation(fields:[assignedUserId], references:[id], onDelete:SetNull)
+  priority WorkPriority @default(NORMAL)
+  status WorkItemStatus @default(OPEN)
+  title String
+  description String
+  dueAt DateTime?
+  sourceType String
+  sourceId String?
+  resolutionCode String?
+  resolutionNotes String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  completedAt DateTime?
+  @@index([practiceId,status,priority,dueAt])
+  @@index([queueId,status,createdAt])
+  @@index([assignedUserId,status,dueAt])
+}
+model DenialCase {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  claimId String
+  claim Claim @relation(fields:[claimId], references:[id], onDelete:Cascade)
+  denialCode String?
+  denialReason String
+  denialCategory String
+  denialDate DateTime
+  appealDeadline DateTime?
+  amountAtRisk Decimal @db.Decimal(12,2)
+  status DenialStatus @default(OPEN)
+  sourceReference String?
+  appeals Appeal[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([practiceId,status,denialDate])
+  @@index([claimId,status])
+  @@index([appealDeadline,status])
+}
+model Appeal {
+  id String @id @default(uuid())
+  denialCaseId String
+  denialCase DenialCase @relation(fields:[denialCaseId], references:[id], onDelete:Cascade)
+  status AppealStatus @default(DRAFT)
+  appealLevel String
+  draftTextEncrypted String?
+  evidenceManifest Json @default("[]")
+  reviewerId String?
+  reviewer User? @relation("AppealReviewer",fields:[reviewerId], references:[id], onDelete:SetNull)
+  approvedAt DateTime?
+  submittedAt DateTime?
+  decisionAt DateTime?
+  outcome String?
+  recoveredAmount Decimal? @db.Decimal(12,2)
+  externalReference String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([denialCaseId,status])
+  @@index([status,submittedAt])
+}
+model ReimbursementEvent {
+  id String @id @default(uuid())
+  practiceId String
+  practice Practice @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  claimId String
+  claim Claim @relation(fields:[claimId], references:[id], onDelete:Cascade)
+  eventType ReimbursementEventType
+  amount Decimal @db.Decimal(12,2)
+  currency String @default("USD")
+  paymentDate DateTime
+  source String
+  externalReferenceHash String?
+  remittanceMetadata Json @default("{}")
+  createdAt DateTime @default(now())
+  @@index([practiceId,paymentDate,eventType])
+  @@index([claimId,paymentDate])
+}
+
+
+model AIModel {
+  id String @id @default(uuid())
+  practiceId String?
+  practice Practice? @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  name String
+  slug String
+  category ModelCategory
+  owner String
+  description String?
+  status ModelStatus @default(DRAFT)
+  intendedUse String
+  prohibitedUses Json @default("[]")
+  riskTier String @default("HIGH_IMPACT")
+  versions ModelVersion[]
+  approvals ModelApproval[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([practiceId,slug])
+  @@index([practiceId,category,status])
+}
+model ModelVersion {
+  id String @id @default(uuid())
+  modelId String
+  model AIModel @relation(fields:[modelId], references:[id], onDelete:Cascade)
+  version String
+  algorithm String
+  framework String?
+  status ModelStatus @default(DRAFT)
+  hyperparameters Json @default("{}")
+  sourceCodeCommit String?
+  approvedAt DateTime?
+  deployedAt DateTime?
+  artifacts ModelArtifact[]
+  deployments ModelDeployment[]
+  trainingRuns TrainingRun[]
+  predictionEvents PredictionEvent[]
+  driftMeasurements DriftMeasurement[]
+  performanceMetrics ModelPerformance[]
+  approvals ModelApproval[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([modelId,version])
+  @@index([status,createdAt])
+}
+model Dataset {
+  id String @id @default(uuid())
+  practiceId String?
+  practice Practice? @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  name String
+  slug String
+  description String?
+  containsPhi Boolean @default(false)
+  purposeRestriction String
+  retentionPolicy String?
+  versions DatasetVersion[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([practiceId,slug])
+}
+model DatasetVersion {
+  id String @id @default(uuid())
+  datasetId String
+  dataset Dataset @relation(fields:[datasetId], references:[id], onDelete:Cascade)
+  version String
+  rowCount Int
+  checksum String
+  storageUriEncrypted String
+  schemaDefinition Json
+  qualityReport Json @default("{}")
+  deidentificationMethod String?
+  approvedForTraining Boolean @default(false)
+  createdAt DateTime @default(now())
+  trainingRuns TrainingRun[]
+  @@unique([datasetId,version])
+}
+model TrainingRun {
+  id String @id @default(uuid())
+  modelVersionId String
+  modelVersion ModelVersion @relation(fields:[modelVersionId], references:[id], onDelete:Cascade)
+  datasetVersionId String
+  datasetVersion DatasetVersion @relation(fields:[datasetVersionId], references:[id])
+  status TrainingStatus @default(QUEUED)
+  parameters Json @default("{}")
+  metrics Json @default("{}")
+  computeEnvironment String?
+  randomSeed Int?
+  startedAt DateTime?
+  completedAt DateTime?
+  errorMessageRedacted String?
+  createdAt DateTime @default(now())
+  @@index([modelVersionId,status,createdAt])
+  @@index([datasetVersionId,createdAt])
+}
+model ModelArtifact {
+  id String @id @default(uuid())
+  modelVersionId String
+  modelVersion ModelVersion @relation(fields:[modelVersionId], references:[id], onDelete:Cascade)
+  artifactType ArtifactType
+  storageUriEncrypted String
+  checksum String
+  mediaType String?
+  sizeBytes BigInt?
+  createdAt DateTime @default(now())
+  @@index([modelVersionId,artifactType])
+}
+model ModelDeployment {
+  id String @id @default(uuid())
+  modelVersionId String
+  modelVersion ModelVersion @relation(fields:[modelVersionId], references:[id])
+  environment DeploymentEnvironment
+  endpointReference String?
+  trafficPercent Float @default(100)
+  deployedByUserId String?
+  rollbackModelVersionId String?
+  status String @default("ACTIVE")
+  deployedAt DateTime @default(now())
+  retiredAt DateTime?
+  @@index([environment,status,deployedAt])
+}
+model FeatureDefinition {
+  id String @id @default(uuid())
+  name String @unique
+  description String
+  owner String
+  dataType String
+  entityType String
+  calculationLogic String
+  version String
+  containsPhi Boolean @default(false)
+  active Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model FeatureSnapshot {
+  id String @id @default(uuid())
+  practiceId String?
+  practice Practice? @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  entityType String
+  entityId String
+  featureVersion String
+  features Json
+  featureHash String
+  createdAt DateTime @default(now())
+  predictionEvents PredictionEvent[]
+  @@index([practiceId,entityType,entityId,createdAt])
+}
+model PredictionEvent {
+  id String @id @default(uuid())
+  practiceId String?
+  practice Practice? @relation(fields:[practiceId], references:[id], onDelete:Cascade)
+  modelVersionId String
+  modelVersion ModelVersion @relation(fields:[modelVersionId], references:[id])
+  featureSnapshotId String?
+  featureSnapshot FeatureSnapshot? @relation(fields:[featureSnapshotId], references:[id], onDelete:SetNull)
+  entityType String
+  entityId String
+  prediction Json
+  confidence Float?
+  decisionThreshold Float?
+  requestId String?
+  latencyMs Int?
+  explanations ExplanationRecord[]
+  feedback FeedbackEvent[]
+  createdAt DateTime @default(now())
+  @@index([practiceId,entityType,entityId,createdAt])
+  @@index([modelVersionId,createdAt])
+}
+model ExplanationRecord {
+  id String @id @default(uuid())
+  predictionEventId String
+  predictionEvent PredictionEvent @relation(fields:[predictionEventId], references:[id], onDelete:Cascade)
+  method String
+  explanation Json
+  humanReadableSummary String?
+  createdAt DateTime @default(now())
+}
+model DriftMeasurement {
+  id String @id @default(uuid())
+  modelVersionId String
+  modelVersion ModelVersion @relation(fields:[modelVersionId], references:[id], onDelete:Cascade)
+  driftType DriftType
+  driftScore Float
+  threshold Float
+  status DriftStatus
+  segment Json @default("{}")
+  baselineWindow String
+  comparisonWindow String
+  measuredAt DateTime
+  createdAt DateTime @default(now())
+  @@index([modelVersionId,driftType,measuredAt])
+  @@index([status,measuredAt])
+}
+model ModelPerformance {
+  id String @id @default(uuid())
+  modelVersionId String
+  modelVersion ModelVersion @relation(fields:[modelVersionId], references:[id], onDelete:Cascade)
+  metricName String
+  metricValue Float
+  segment Json @default("{}")
+  evaluationWindow String
+  sampleSize Int?
+  calculatedAt DateTime
+  createdAt DateTime @default(now())
+  @@index([modelVersionId,metricName,calculatedAt])
+}
+model FeedbackEvent {
+  id String @id @default(uuid())
+  predictionEventId String
+  predictionEvent PredictionEvent @relation(fields:[predictionEventId], references:[id], onDelete:Cascade)
+  actualOutcome Json
+  reviewerUserId String?
+  feedbackType String
+  notes String?
+  createdAt DateTime @default(now())
+  @@index([predictionEventId,createdAt])
+}
+model ModelApproval {
+  id String @id @default(uuid())
+  modelId String
+  model AIModel @relation(fields:[modelId], references:[id], onDelete:Cascade)
+  modelVersionId String?
+  modelVersion ModelVersion? @relation(fields:[modelVersionId], references:[id], onDelete:Cascade)
+  reviewerUserId String
+  reviewerRole String
+  status ApprovalStatus @default(PENDING)
+  validationSummary Json @default("{}")
+  notes String?
+  approvedAt DateTime?
+  createdAt DateTime @default(now())
+  @@index([modelId,status,createdAt])
 }

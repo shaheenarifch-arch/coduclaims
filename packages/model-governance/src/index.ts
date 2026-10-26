@@ -1,0 +1,1 @@
+export const PROHIBITED_AUTOMATION=["autonomous_claim_submission","autonomous_appeal_submission","automatic_write_off","automatic_patient_balance_decision"] as const;

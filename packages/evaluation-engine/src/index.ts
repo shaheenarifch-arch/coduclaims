@@ -1,0 +1,1 @@
+export function binaryMetrics(x:{tp:number;fp:number;tn:number;fn:number}){const precision=x.tp/(x.tp+x.fp||1),recall=x.tp/(x.tp+x.fn||1),accuracy=(x.tp+x.tn)/(x.tp+x.fp+x.tn+x.fn||1);return{precision,recall,accuracy}}
