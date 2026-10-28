@@ -780,19 +780,23 @@ Discover documentation gaps, coding opportunities, claim risks,
 and reimbursement improvement opportunities.
 </p>
 
-<form class="form">
+<form class="form" action="https://formsubmit.co/agents@getservices.ai" method="POST">
+
+<input type="hidden" name="_subject" value="New Assessment Request – Mass Medical Coding">
+<input type="hidden" name="_template" value="table">
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
 <div class="form-grid">
 
-<input type="text" placeholder="Practice Name">
+<input type="text" name="practice_name" placeholder="Practice Name" required>
 
-<input type="text" placeholder="Provider Count">
+<input type="number" name="provider_count" placeholder="Provider Count" min="1">
 
-<input type="email" placeholder="Business Email">
+<input type="email" name="email" placeholder="Business Email" required>
 
-<input type="tel" placeholder="Phone Number">
+<input type="tel" name="phone" placeholder="Phone Number">
 
-<textarea placeholder="Tell us about your coding, documentation, denial, or reimbursement challenges."></textarea>
+<textarea name="message" placeholder="Tell us about your coding, documentation, denial, or reimbursement challenges." required></textarea>
 
 <button type="submit">
 Request Assessment
