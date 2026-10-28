@@ -1,0 +1,9 @@
+name = "gs-site-assistant"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+MODEL = "claude-haiku-5-5"
+
+# Secret (set once, never committed):
+#   npx wrangler secret put ANTHROPIC_API_KEY

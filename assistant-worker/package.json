@@ -1,0 +1,10 @@
+{
+  "name": "gs-site-assistant",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "knowledge": "node build-knowledge.mjs",
+    "test": "node --test test/worker.test.js",
+    "deploy": "node build-knowledge.mjs && wrangler deploy"
+  }
+}
