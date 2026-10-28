@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coding Compliance Audits | Mass Medical Coding</title>
+<meta name="description" content="Coding compliance audits for practices nationwide. Prepare for payer reviews and internal audits and reduce repayment risk." />
+<link rel="canonical" href="https://massmedicalcoding.com/compliance-audits.html" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Coding Compliance Audits | Mass Medical Coding" />
+<meta property="og:description" content="Coding compliance audits for practices nationwide. Prepare for payer reviews and internal audits and reduce repayment risk." />
+<meta property="og:url" content="https://massmedicalcoding.com/compliance-audits.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+:root{
+--primary:#0f172a;
+--secondary:#1e40af;
+--accent:#2563eb;
+--light:#f8fafc;
+--text:#334155;
+--white:#ffffff;
+--success:#16a34a;
+--border:#e2e8f0;
+--shadow:0 20px 60px rgba(15,23,42,.08);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:var(--light);
+color:var(--text);
+line-height:1.7;
+overflow-x:hidden;
+}
+
+.container{
+width:90%;
+max-width:1300px;
+margin:auto;
+}
+
+section{
+padding:100px 0;
+}
+
+h1,h2,h3,h4{
+color:var(--primary);
+}
+
+a{
+text-decoration:none;
+}
+
+.btn{
+display:inline-flex;
+align-items:center;
+gap:10px;
+padding:16px 32px;
+border-radius:12px;
+font-weight:700;
+transition:.3s;
+}
+
+.btn-primary{
+background:var(--accent);
+color:white;
+}
+
+.btn-primary:hover{
+transform:translateY(-2px);
+}
+
+.btn-secondary{
+border:2px solid rgba(255,255,255,.3);
+color:white;
+}
+
+.btn-secondary:hover{
+background:white;
+color:var(--primary);
+}
+
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:999;
+background:rgba(15,23,42,.85);
+backdrop-filter:blur(16px);
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 0;
+}
+
+.logo{
+font-size:28px;
+font-weight:900;
+color:white;
+}
+
+.logo span{
+color:#60a5fa;
+}
+
+.menu{
+display:flex;
+gap:30px;
+align-items:center;
+}
+
+.menu a{
+color:white;
+font-weight:500;
+}
+
+.hero{
+background:
+linear-gradient(
+135deg,
+rgba(15,23,42,.95),
+rgba(30,64,175,.92)
+);
+padding:180px 0 140px;
+color:white;
+position:relative;
+overflow:hidden;
+}
+
+.hero::before{
+content:'';
+position:absolute;
+right:-120px;
+top:-100px;
+width:500px;
+height:500px;
+background:rgba(255,255,255,.05);
+border-radius:50%;
+}
+
+.hero-content{
+max-width:850px;
+}
+
+.hero-grid{
+display:grid;
+grid-template-columns:minmax(0,1fr) 380px;
+gap:50px;
+align-items:center;
+position:relative;
+}
+
+.hero-chart{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.15);
+border-radius:24px;
+padding:30px;
+backdrop-filter:blur(6px);
+}
+
+.hero-chart h4{
+font-size:18px;
+font-weight:800;
+color:white;
+margin-bottom:4px;
+}
+
+.hero-chart .chart-sub{
+font-size:13px;
+opacity:.75;
+margin-bottom:24px;
+}
+
+.chart-row{
+margin-bottom:18px;
+}
+
+.chart-label{
+display:flex;
+justify-content:space-between;
+font-size:14px;
+margin-bottom:8px;
+}
+
+.chart-label strong{
+font-weight:800;
+}
+
+.chart-track{
+height:12px;
+background:rgba(255,255,255,.12);
+border-radius:999px;
+overflow:hidden;
+}
+
+.chart-bar{
+height:100%;
+width:var(--w);
+border-radius:999px;
+background:linear-gradient(90deg,#60a5fa,#ffffff);
+animation:barGrow 1.4s ease-out both;
+}
+
+.chart-bar.muted{
+background:rgba(255,255,255,.45);
+}
+
+.hero-chart .chart-note{
+font-size:12px;
+opacity:.6;
+margin:20px 0 0;
+}
+
+@keyframes barGrow{
+from{width:0}
+to{width:var(--w)}
+}
+
+@media(prefers-reduced-motion:reduce){
+.chart-bar{animation:none}
+}
+
+@media(max-width:1100px){
+.hero-grid{grid-template-columns:1fr}
+.hero-chart{max-width:480px}
+}
+
+.card-link{
+display:block;
+color:inherit;
+cursor:pointer;
+}
+
+.card-link .more{
+display:inline-block;
+margin-top:14px;
+font-weight:700;
+color:#0d9488;
+}
+
+.footer-grid a{
+color:#cbd5e1;
+transition:.2s;
+}
+
+.footer-grid a:hover{
+color:#2dd4bf;
+}
+
+/* Light hero with teal / turquoise accents */
+.hero{
+--teal:#0d9488;
+--teal-dark:#0f766e;
+--turquoise:#2dd4bf;
+background:
+radial-gradient(circle at 85% 15%,rgba(45,212,191,.12),transparent 45%),
+radial-gradient(circle at 5% 90%,rgba(13,148,136,.08),transparent 40%),
+#ffffff;
+color:var(--text);
+}
+
+.hero::before{
+background:rgba(45,212,191,.08);
+}
+
+.hero-grid{
+z-index:1;
+}
+
+section.hero h1{
+color:var(--primary);
+}
+
+.hero h1 .accent{
+background:linear-gradient(90deg,var(--teal),var(--turquoise));
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+}
+
+.hero p{
+color:var(--text);
+}
+
+.hero .tag{
+background:rgba(45,212,191,.12);
+border:1px solid rgba(13,148,136,.25);
+color:var(--teal-dark);
+font-weight:600;
+}
+
+.hero .btn-secondary{
+border-color:var(--teal);
+color:var(--teal-dark);
+}
+
+.hero .btn-secondary:hover{
+background:var(--teal);
+color:white;
+}
+
+.hero .stat{
+background:white;
+border:1px solid var(--border);
+border-top:3px solid var(--turquoise);
+box-shadow:var(--shadow);
+}
+
+.hero .stat h3{
+color:var(--teal);
+}
+
+.hero .stat p{
+color:var(--text);
+}
+
+.hero .hero-chart{
+background:rgba(255,255,255,.85);
+border:1px solid var(--border);
+box-shadow:var(--shadow);
+}
+
+.hero .hero-chart h4{
+color:var(--primary);
+}
+
+.hero .chart-label strong{
+color:var(--teal-dark);
+}
+
+.hero .chart-track{
+background:#e6f7f5;
+}
+
+.hero .chart-bar{
+background:linear-gradient(90deg,var(--teal),var(--turquoise));
+}
+
+.hero .chart-bar.muted{
+background:#94a3b8;
+}
+
+/* Drifting circles */
+.hero-bubbles{
+position:absolute;
+inset:0;
+overflow:hidden;
+pointer-events:none;
+z-index:0;
+}
+
+.hero-bubbles span{
+position:absolute;
+border-radius:50%;
+background:radial-gradient(circle at 30% 30%,rgba(45,212,191,.35),rgba(13,148,136,.08));
+animation:drift 22s ease-in-out infinite alternate;
+}
+
+.hero-bubbles span:nth-child(1){width:140px;height:140px;left:-50px;top:60%;}
+.hero-bubbles span:nth-child(2){width:70px;height:70px;left:44%;top:12%;animation-duration:17s;animation-delay:-4s;}
+.hero-bubbles span:nth-child(3){width:220px;height:220px;right:-40px;bottom:8%;animation-duration:28s;opacity:.7;}
+.hero-bubbles span:nth-child(4){width:40px;height:40px;left:62%;top:70%;animation-duration:14s;animation-delay:-8s;}
+.hero-bubbles span:nth-child(5){width:100px;height:100px;left:30%;bottom:6%;animation-duration:24s;animation-delay:-2s;opacity:.6;}
+.hero-bubbles span:nth-child(6){width:24px;height:24px;left:80%;top:40%;animation-duration:12s;animation-delay:-6s;}
+
+@keyframes drift{
+0%{transform:translate(0,0) scale(1)}
+50%{transform:translate(40px,-30px) scale(1.08)}
+100%{transform:translate(-30px,25px) scale(.95)}
+}
+
+@media(prefers-reduced-motion:reduce){
+.hero-bubbles span{animation:none}
+}
+
+.tag{
+display:inline-block;
+padding:10px 18px;
+background:rgba(255,255,255,.12);
+border:1px solid rgba(255,255,255,.15);
+border-radius:999px;
+font-size:14px;
+margin-bottom:25px;
+}
+
+.hero h1{
+font-size:70px;
+font-weight:900;
+line-height:1.05;
+color:white;
+margin-bottom:30px;
+max-width:900px;
+}
+
+.hero p{
+font-size:22px;
+max-width:780px;
+opacity:.95;
+margin-bottom:40px;
+}
+
+.hero-actions{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.stats{
+margin-top:70px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px;
+}
+
+.stat{
+background:rgba(255,255,255,.08);
+padding:28px;
+border-radius:18px;
+backdrop-filter:blur(8px);
+}
+
+.stat h3{
+color:white;
+font-size:34px;
+margin-bottom:5px;
+}
+
+.stat p{
+margin:0;
+font-size:15px;
+}
+
+.trust-bar{
+background:white;
+padding:25px 0;
+box-shadow:var(--shadow);
+}
+
+.trust-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+text-align:center;
+gap:20px;
+font-weight:700;
+}
+
+.section-title{
+font-size:52px;
+text-align:center;
+margin-bottom:20px;
+}
+
+.section-text{
+font-size:20px;
+text-align:center;
+max-width:900px;
+margin:auto;
+color:#64748b;
+margin-bottom:60px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+}
+
+.card{
+background:white;
+padding:35px;
+border-radius:24px;
+box-shadow:var(--shadow);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+}
+
+.card h3{
+margin-bottom:15px;
+font-size:24px;
+}
+
+.card p{
+color:#64748b;
+}
+
+.revenue{
+background:var(--primary);
+color:white;
+}
+
+.revenue h2{
+color:white;
+text-align:center;
+font-size:52px;
+margin-bottom:60px;
+}
+
+.flow{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:20px;
+text-align:center;
+}
+
+.flow-box{
+background:rgba(255,255,255,.08);
+padding:35px;
+border-radius:20px;
+}
+
+.coverage{
+background:white;
+}
+
+.cities{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:20px;
+margin-top:50px;
+}
+
+.city{
+background:white;
+padding:25px;
+text-align:center;
+border-radius:16px;
+box-shadow:var(--shadow);
+font-weight:700;
+}
+
+.why{
+background:#eef4ff;
+}
+
+.why-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:40px;
+}
+
+.feature{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:var(--shadow);
+}
+
+.cta{
+background:
+linear-gradient(
+135deg,
+#1e40af,
+#2563eb
+);
+color:white;
+text-align:center;
+}
+
+.cta h2{
+font-size:58px;
+color:white;
+margin-bottom:20px;
+}
+
+.cta p{
+font-size:22px;
+max-width:800px;
+margin:auto;
+margin-bottom:40px;
+}
+
+.form{
+background:white;
+max-width:900px;
+margin:auto;
+padding:40px;
+border-radius:24px;
+margin-top:50px;
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+}
+
+.form input,
+.form textarea{
+width:100%;
+padding:16px;
+border:1px solid var(--border);
+border-radius:12px;
+font-size:16px;
+}
+
+.form textarea{
+height:140px;
+grid-column:1/3;
+}
+
+.form button{
+background:var(--accent);
+color:white;
+border:none;
+padding:18px;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+grid-column:1/3;
+}
+
+footer{
+background:#020617;
+color:#cbd5e1;
+padding:80px 0 40px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:2fr 1fr 1fr 1fr;
+gap:40px;
+}
+
+.footer-grid h4{
+color:white;
+margin-bottom:15px;
+}
+
+.footer-bottom{
+margin-top:50px;
+padding-top:30px;
+border-top:1px solid #334155;
+text-align:center;
+}
+
+@media(max-width:991px){
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+
+.trust-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.flow{
+grid-template-columns:1fr;
+}
+
+.cities{
+grid-template-columns:repeat(2,1fr);
+}
+
+.why-grid{
+grid-template-columns:1fr;
+}
+
+.footer-grid{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:48px;
+}
+
+.form-grid{
+grid-template-columns:1fr;
+}
+
+.form textarea,
+.form button{
+grid-column:auto;
+}
+
+.menu{
+display:none;
+}
+}
+
+
+.page-hero{
+padding:170px 0 80px;
+background:
+radial-gradient(circle at 85% 20%,rgba(45,212,191,.14),transparent 45%),
+radial-gradient(circle at 5% 90%,rgba(13,148,136,.08),transparent 40%),
+#ffffff;
+border-bottom:1px solid var(--border);
+}
+.crumbs{font-size:14px;margin-bottom:18px;color:#64748b;}
+.crumbs a{color:#0f766e;font-weight:600;}
+.page-hero .eyebrow{
+display:inline-block;padding:8px 16px;border-radius:999px;
+background:rgba(45,212,191,.12);border:1px solid rgba(13,148,136,.25);
+color:#0f766e;font-weight:600;font-size:14px;margin-bottom:20px;
+}
+.page-hero h1{font-size:54px;line-height:1.1;font-weight:900;margin-bottom:22px;max-width:900px;}
+.page-hero p{font-size:20px;max-width:760px;}
+.page-body{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:60px;align-items:start;}
+.prose h2{font-size:30px;margin:10px 0 16px;}
+.prose p{margin-bottom:18px;font-size:17px;}
+.prose ul{margin:0 0 24px 22px;}
+.prose li{margin-bottom:10px;font-size:17px;}
+.prose section{padding:0 0 30px;}
+.side-card{
+position:sticky;top:120px;background:white;border:1px solid var(--border);
+border-top:4px solid #2dd4bf;border-radius:20px;padding:30px;box-shadow:var(--shadow);
+}
+.side-card h3{font-size:22px;margin-bottom:10px;}
+.side-card p{margin-bottom:20px;}
+.side-card .btn{width:100%;justify-content:center;}
+.side-card ul{list-style:none;margin-top:24px;border-top:1px solid var(--border);padding-top:18px;}
+.side-card li{margin-bottom:8px;}
+.side-card li a{color:#0f766e;font-weight:600;}
+.faq{margin-top:20px;}
+.faq details{background:white;border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:12px;}
+.faq summary{cursor:pointer;font-weight:700;color:var(--primary);}
+.faq details p{margin:12px 0 0;}
+@media(max-width:991px){
+.page-body{grid-template-columns:1fr;}
+.side-card{position:static;}
+.page-hero h1{font-size:38px;}
+}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Compliance Audits", "serviceType": "Compliance Audits", "areaServed": {"@type": "Country", "name": "United States"}, "provider": {"@type": "ProfessionalService", "name": "Mass Medical Coding", "url": "https://massmedicalcoding.com"}, "description": "Coding compliance audits for practices nationwide. Prepare for payer reviews and internal audits and reduce repayment risk.", "url": "https://massmedicalcoding.com/compliance-audits.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://massmedicalcoding.com/"}, {"@type": "ListItem", "position": 2, "name": "Compliance Audits", "item": "https://massmedicalcoding.com/compliance-audits.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Are audit results confidential?", "acceptedAnswer": {"@type": "Answer", "text": "Results are shared only with your practice. Discuss privileged review arrangements with your attorney if needed."}}, {"@type": "Question", "name": "Can you audit a single provider?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Focused audits for one provider or one service line are common."}}]}</script>
+</head>
+<body>
+
+<header>
+<div class="container">
+<div class="nav">
+<a href="index.html" class="logo">Mass<span>MedicalCoding</span></a>
+<div class="menu">
+<a href="index.html#services">Services</a>
+<a href="index.html#specialties">Specialties</a>
+<a href="index.html#coverage">Coverage</a>
+<a href="index.html#about">Why Us</a>
+<a href="index.html#contact">Contact</a>
+<a href="index.html#contact" class="btn btn-primary">Free Assessment</a>
+</div>
+</div>
+</div>
+</header>
+
+<section class="page-hero">
+<div class="container">
+<div class="crumbs"><a href="index.html">Home</a> / Services / Compliance Audits</div>
+<div class="eyebrow">Service</div>
+<h1>Compliance Audits</h1>
+<p>Independent coding compliance audits that help you find and correct risk before a payer or regulator does.</p>
+</div>
+</section>
+
+<section>
+<div class="container page-body">
+<article class="prose">
+<section>
+<h2>What we audit</h2>
+<ul><li>E/M level distribution compared with specialty norms</li><li>High-risk modifiers and code pairs</li><li>Documentation supporting medical necessity</li><li>Copy-forward and cloned documentation</li><li>Incident-to and split/shared visit billing</li></ul>
+</section>
+<section>
+<h2>Supporting your compliance program</h2>
+<p>Regular auditing and monitoring is one of the core elements of an effective compliance program described in the HHS Office of Inspector General's general compliance program guidance. Our audits give you documented results you can act on and keep on file.</p>
+</section>
+<section>
+<h2>Preparing for payer reviews</h2>
+<p>If you receive a records request or audit notice, we can review the requested records first so you understand your position and any corrective steps. For legal questions, consult your healthcare attorney.</p>
+</section>
+
+<section>
+<h2>Frequently Asked Questions</h2>
+<div class="faq"><details><summary>Are audit results confidential?</summary><p>Results are shared only with your practice. Discuss privileged review arrangements with your attorney if needed.</p></details><details><summary>Can you audit a single provider?</summary><p>Yes. Focused audits for one provider or one service line are common.</p></details></div>
+</section>
+</article>
+<aside class="side-card">
+<h3>Free Revenue Assessment</h3>
+<p>Find documentation gaps, coding risks, and missed reimbursement in your practice.</p>
+<a href="index.html#contact" class="btn btn-primary">Request Assessment</a>
+<ul><li><a href="medical-coding.html">Medical Coding Reviews</a></li><li><a href="documentation-audits.html">Documentation & Chart Audits</a></li><li><a href="denial-prevention.html">Denial Prevention</a></li><li><a href="revenue-cycle-consulting.html">Revenue Cycle Consulting</a></li><li><a href="provider-education.html">Provider Education</a></li></ul>
+</aside>
+</div>
+</section>
+
+<footer>
+
+<div class="container">
+
+<div class="footer-grid">
+
+<div>
+<h4>Mass Medical Coding</h4>
+<p>
+Medical Coding, Documentation Intelligence,
+Revenue Cycle Consulting, and Denial Prevention
+for healthcare organizations across the United States.
+</p>
+</div>
+
+<div>
+<h4>Services</h4>
+<p><a href="medical-coding.html">Medical Coding</a></p>
+<p><a href="documentation-audits.html">Chart Audits</a></p>
+<p><a href="documentation-audits.html">Documentation Reviews</a></p>
+<p><a href="revenue-cycle-consulting.html">Revenue Cycle Consulting</a></p>
+</div>
+
+<div>
+<h4>Resources</h4>
+<p><a href="compliance-audits.html">Compliance</a></p>
+<p><a href="documentation-tips.html">Documentation Tips</a></p>
+<p><a href="coding-guidance.html">Coding Guidance</a></p>
+<p><a href="revenue-insights.html">Revenue Insights</a></p>
+</div>
+
+<div>
+<h4>Contact</h4>
+<p><a href="mailto:info@massmedicalcoding.com">info@massmedicalcoding.com</a></p>
+<p>United States</p>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 Mass Medical Coding. All Rights Reserved.
+</div>
+
+</div>
+
+</footer>
+
+</body>
+</html>

@@ -6,7 +6,7 @@
 
 <title>Mass Medical Coding | Medical Coding, Documentation & Revenue Cycle Solutions</title>
 
-<meta name="description" content="Mass Medical Coding helps physician practices improve coding accuracy, reduce denials, strengthen documentation, and optimize reimbursement across Massachusetts." />
+<meta name="description" content="Mass Medical Coding helps physician practices improve coding accuracy, reduce denials, strengthen documentation, and optimize reimbursement for practices across the United States." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -155,6 +155,237 @@ border-radius:50%;
 
 .hero-content{
 max-width:850px;
+}
+
+.hero-grid{
+display:grid;
+grid-template-columns:minmax(0,1fr) 380px;
+gap:50px;
+align-items:center;
+position:relative;
+}
+
+.hero-chart{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.15);
+border-radius:24px;
+padding:30px;
+backdrop-filter:blur(6px);
+}
+
+.hero-chart h4{
+font-size:18px;
+font-weight:800;
+color:white;
+margin-bottom:4px;
+}
+
+.hero-chart .chart-sub{
+font-size:13px;
+opacity:.75;
+margin-bottom:24px;
+}
+
+.chart-row{
+margin-bottom:18px;
+}
+
+.chart-label{
+display:flex;
+justify-content:space-between;
+font-size:14px;
+margin-bottom:8px;
+}
+
+.chart-label strong{
+font-weight:800;
+}
+
+.chart-track{
+height:12px;
+background:rgba(255,255,255,.12);
+border-radius:999px;
+overflow:hidden;
+}
+
+.chart-bar{
+height:100%;
+width:var(--w);
+border-radius:999px;
+background:linear-gradient(90deg,#60a5fa,#ffffff);
+animation:barGrow 1.4s ease-out both;
+}
+
+.chart-bar.muted{
+background:rgba(255,255,255,.45);
+}
+
+.hero-chart .chart-note{
+font-size:12px;
+opacity:.6;
+margin:20px 0 0;
+}
+
+@keyframes barGrow{
+from{width:0}
+to{width:var(--w)}
+}
+
+@media(prefers-reduced-motion:reduce){
+.chart-bar{animation:none}
+}
+
+@media(max-width:1100px){
+.hero-grid{grid-template-columns:1fr}
+.hero-chart{max-width:480px}
+}
+
+.card-link{
+display:block;
+color:inherit;
+cursor:pointer;
+}
+
+.card-link .more{
+display:inline-block;
+margin-top:14px;
+font-weight:700;
+color:#0d9488;
+}
+
+.footer-grid a{
+color:#cbd5e1;
+transition:.2s;
+}
+
+.footer-grid a:hover{
+color:#2dd4bf;
+}
+
+/* Light hero with teal / turquoise accents */
+.hero{
+--teal:#0d9488;
+--teal-dark:#0f766e;
+--turquoise:#2dd4bf;
+background:
+radial-gradient(circle at 85% 15%,rgba(45,212,191,.12),transparent 45%),
+radial-gradient(circle at 5% 90%,rgba(13,148,136,.08),transparent 40%),
+#ffffff;
+color:var(--text);
+}
+
+.hero::before{
+background:rgba(45,212,191,.08);
+}
+
+.hero-grid{
+z-index:1;
+}
+
+section.hero h1{
+color:var(--primary);
+}
+
+.hero h1 .accent{
+background:linear-gradient(90deg,var(--teal),var(--turquoise));
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+}
+
+.hero p{
+color:var(--text);
+}
+
+.hero .tag{
+background:rgba(45,212,191,.12);
+border:1px solid rgba(13,148,136,.25);
+color:var(--teal-dark);
+font-weight:600;
+}
+
+.hero .btn-secondary{
+border-color:var(--teal);
+color:var(--teal-dark);
+}
+
+.hero .btn-secondary:hover{
+background:var(--teal);
+color:white;
+}
+
+.hero .stat{
+background:white;
+border:1px solid var(--border);
+border-top:3px solid var(--turquoise);
+box-shadow:var(--shadow);
+}
+
+.hero .stat h3{
+color:var(--teal);
+}
+
+.hero .stat p{
+color:var(--text);
+}
+
+.hero .hero-chart{
+background:rgba(255,255,255,.85);
+border:1px solid var(--border);
+box-shadow:var(--shadow);
+}
+
+.hero .hero-chart h4{
+color:var(--primary);
+}
+
+.hero .chart-label strong{
+color:var(--teal-dark);
+}
+
+.hero .chart-track{
+background:#e6f7f5;
+}
+
+.hero .chart-bar{
+background:linear-gradient(90deg,var(--teal),var(--turquoise));
+}
+
+.hero .chart-bar.muted{
+background:#94a3b8;
+}
+
+/* Drifting circles */
+.hero-bubbles{
+position:absolute;
+inset:0;
+overflow:hidden;
+pointer-events:none;
+z-index:0;
+}
+
+.hero-bubbles span{
+position:absolute;
+border-radius:50%;
+background:radial-gradient(circle at 30% 30%,rgba(45,212,191,.35),rgba(13,148,136,.08));
+animation:drift 22s ease-in-out infinite alternate;
+}
+
+.hero-bubbles span:nth-child(1){width:140px;height:140px;left:-50px;top:60%;}
+.hero-bubbles span:nth-child(2){width:70px;height:70px;left:44%;top:12%;animation-duration:17s;animation-delay:-4s;}
+.hero-bubbles span:nth-child(3){width:220px;height:220px;right:-40px;bottom:8%;animation-duration:28s;opacity:.7;}
+.hero-bubbles span:nth-child(4){width:40px;height:40px;left:62%;top:70%;animation-duration:14s;animation-delay:-8s;}
+.hero-bubbles span:nth-child(5){width:100px;height:100px;left:30%;bottom:6%;animation-duration:24s;animation-delay:-2s;opacity:.6;}
+.hero-bubbles span:nth-child(6){width:24px;height:24px;left:80%;top:40%;animation-duration:12s;animation-delay:-6s;}
+
+@keyframes drift{
+0%{transform:translate(0,0) scale(1)}
+50%{transform:translate(40px,-30px) scale(1.08)}
+100%{transform:translate(-30px,25px) scale(.95)}
+}
+
+@media(prefers-reduced-motion:reduce){
+.hero-bubbles span{animation:none}
 }
 
 .tag{
@@ -495,7 +726,9 @@ Free Assessment
 
 <section class="hero">
 
-<div class="container">
+<div class="hero-bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+<div class="container hero-grid">
 
 <div class="hero-content">
 
@@ -504,7 +737,7 @@ Medical Coding • Documentation Intelligence • Revenue Cycle Consulting
 </div>
 
 <h1>
-Massachusetts Medical Coding & Revenue Intelligence
+Medical Coding & <span class="accent">Revenue Intelligence</span>
 </h1>
 
 <p>
@@ -543,13 +776,42 @@ Explore Services
 </div>
 
 <div class="stat">
-<h3>MA</h3>
-<p>Statewide Coverage</p>
+<h3>US</h3>
+<p>Nationwide Coverage</p>
 </div>
 
 </div>
 
 </div>
+
+<aside class="hero-chart" aria-label="Revenue cycle performance chart">
+
+<h4>Revenue Cycle Snapshot</h4>
+<p class="chart-sub">Performance targets for client practices</p>
+
+<div class="chart-row">
+<div class="chart-label"><span>Clean Claim Rate</span><strong>95%</strong></div>
+<div class="chart-track"><div class="chart-bar" style="--w:95%"></div></div>
+</div>
+
+<div class="chart-row">
+<div class="chart-label"><span>Coding Accuracy</span><strong>95%+</strong></div>
+<div class="chart-track"><div class="chart-bar" style="--w:96%"></div></div>
+</div>
+
+<div class="chart-row">
+<div class="chart-label"><span>Documentation Completeness</span><strong>90%+</strong></div>
+<div class="chart-track"><div class="chart-bar" style="--w:90%"></div></div>
+</div>
+
+<div class="chart-row">
+<div class="chart-label"><span>Denial Rate (lower is better)</span><strong>&lt;5%</strong></div>
+<div class="chart-track"><div class="chart-bar muted" style="--w:5%"></div></div>
+</div>
+
+<p class="chart-note">Targets shown for illustration. Actual results vary by practice.</p>
+
+</aside>
 
 </div>
 
@@ -586,47 +848,53 @@ support cleaner claims, and strengthen revenue cycle performance.
 
 <div class="grid">
 
-<div class="card">
+<a class="card card-link" href="medical-coding.html">
 <h3>Medical Coding Reviews</h3>
 <p>
 ICD-10-CM, CPT and HCPCS review services designed to improve coding quality and reimbursement accuracy.
 </p>
-</div>
+<span class="more">Learn more &rarr;</span>
+</a>
 
-<div class="card">
+<a class="card card-link" href="documentation-audits.html">
 <h3>Documentation Audits</h3>
 <p>
 Evaluate provider documentation for accuracy, completeness, and revenue impact.
 </p>
-</div>
+<span class="more">Learn more &rarr;</span>
+</a>
 
-<div class="card">
+<a class="card card-link" href="denial-prevention.html">
 <h3>Denial Prevention</h3>
 <p>
 Identify trends, common coding issues, and documentation weaknesses before claim submission.
 </p>
-</div>
+<span class="more">Learn more &rarr;</span>
+</a>
 
-<div class="card">
+<a class="card card-link" href="revenue-cycle-consulting.html">
 <h3>Revenue Cycle Consulting</h3>
 <p>
 Support operations with workflow analysis, coding optimization, and reimbursement performance reviews.
 </p>
-</div>
+<span class="more">Learn more &rarr;</span>
+</a>
 
-<div class="card">
+<a class="card card-link" href="compliance-audits.html">
 <h3>Compliance Audits</h3>
 <p>
 Prepare for payer reviews, internal audits, and coding compliance initiatives.
 </p>
-</div>
+<span class="more">Learn more &rarr;</span>
+</a>
 
-<div class="card">
+<a class="card card-link" href="provider-education.html">
 <h3>Provider Education</h3>
 <p>
 Targeted education and documentation improvement support for physicians and clinical staff.
 </p>
-</div>
+<span class="more">Learn more &rarr;</span>
+</a>
 
 </div>
 
@@ -680,14 +948,14 @@ Specialties We Support
 
 <div class="grid">
 
-<div class="card"><h3>Primary Care</h3></div>
-<div class="card"><h3>Cardiology</h3></div>
-<div class="card"><h3>Orthopedics</h3></div>
-<div class="card"><h3>Pain Management</h3></div>
-<div class="card"><h3>Behavioral Health</h3></div>
-<div class="card"><h3>Internal Medicine</h3></div>
-<div class="card"><h3>Urgent Care</h3></div>
-<div class="card"><h3>Gastroenterology</h3></div>
+<a class="card card-link" href="#contact"><h3>Primary Care</h3></a>
+<a class="card card-link" href="#contact"><h3>Cardiology</h3></a>
+<a class="card card-link" href="#contact"><h3>Orthopedics</h3></a>
+<a class="card card-link" href="#contact"><h3>Pain Management</h3></a>
+<a class="card card-link" href="#contact"><h3>Behavioral Health</h3></a>
+<a class="card card-link" href="#contact"><h3>Internal Medicine</h3></a>
+<a class="card card-link" href="#contact"><h3>Urgent Care</h3></a>
+<a class="card card-link" href="#contact"><h3>Gastroenterology</h3></a>
 
 </div>
 
@@ -714,9 +982,9 @@ denial reduction, and reimbursement optimization.
 </div>
 
 <div class="feature">
-<h3>Massachusetts Healthcare Focus</h3>
+<h3>Nationwide Healthcare Focus</h3>
 <p>
-Purpose-built for physician groups, specialty practices, clinics, and healthcare organizations across Massachusetts.
+Purpose-built for physician groups, specialty practices, clinics, and healthcare organizations across the United States.
 </p>
 </div>
 
@@ -745,21 +1013,21 @@ Designed with healthcare security, privacy, and operational accountability in mi
 <div class="container">
 
 <h2 class="section-title">
-Serving Practices Across Massachusetts
+Serving Practices Nationwide
 </h2>
 
 <div class="cities">
-
 <div class="city">Boston</div>
-<div class="city">Cambridge</div>
-<div class="city">Newton</div>
-<div class="city">Framingham</div>
-<div class="city">Waltham</div>
-<div class="city">Burlington</div>
-<div class="city">Worcester</div>
-<div class="city">Quincy</div>
-<div class="city">Lowell</div>
-<div class="city">Springfield</div>
+<div class="city">New York</div>
+<div class="city">Philadelphia</div>
+<div class="city">Chicago</div>
+<div class="city">Atlanta</div>
+<div class="city">Miami</div>
+<div class="city">Dallas</div>
+<div class="city">Houston</div>
+<div class="city">Phoenix</div>
+<div class="city">Los Angeles</div>
+
 
 </div>
 
@@ -780,19 +1048,23 @@ Discover documentation gaps, coding opportunities, claim risks,
 and reimbursement improvement opportunities.
 </p>
 
-<form class="form">
+<form class="form" action="https://formsubmit.co/agents@getservices.ai" method="POST">
+
+<input type="hidden" name="_subject" value="New Assessment Request – Mass Medical Coding">
+<input type="hidden" name="_template" value="table">
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
 <div class="form-grid">
 
-<input type="text" placeholder="Practice Name">
+<input type="text" name="practice_name" placeholder="Practice Name" required>
 
-<input type="text" placeholder="Provider Count">
+<input type="number" name="provider_count" placeholder="Provider Count" min="1">
 
-<input type="email" placeholder="Business Email">
+<input type="email" name="email" placeholder="Business Email" required>
 
-<input type="tel" placeholder="Phone Number">
+<input type="tel" name="phone" placeholder="Phone Number">
 
-<textarea placeholder="Tell us about your coding, documentation, denial, or reimbursement challenges."></textarea>
+<textarea name="message" placeholder="Tell us about your coding, documentation, denial, or reimbursement challenges." required></textarea>
 
 <button type="submit">
 Request Assessment
@@ -817,30 +1089,30 @@ Request Assessment
 <p>
 Medical Coding, Documentation Intelligence,
 Revenue Cycle Consulting, and Denial Prevention
-for healthcare organizations throughout Massachusetts.
+for healthcare organizations across the United States.
 </p>
 </div>
 
 <div>
 <h4>Services</h4>
-<p>Medical Coding</p>
-<p>Chart Audits</p>
-<p>Documentation Reviews</p>
-<p>Revenue Cycle Consulting</p>
+<p><a href="medical-coding.html">Medical Coding</a></p>
+<p><a href="documentation-audits.html">Chart Audits</a></p>
+<p><a href="documentation-audits.html">Documentation Reviews</a></p>
+<p><a href="revenue-cycle-consulting.html">Revenue Cycle Consulting</a></p>
 </div>
 
 <div>
 <h4>Resources</h4>
-<p>Compliance</p>
-<p>Documentation Tips</p>
-<p>Coding Guidance</p>
-<p>Revenue Insights</p>
+<p><a href="compliance-audits.html">Compliance</a></p>
+<p><a href="documentation-tips.html">Documentation Tips</a></p>
+<p><a href="coding-guidance.html">Coding Guidance</a></p>
+<p><a href="revenue-insights.html">Revenue Insights</a></p>
 </div>
 
 <div>
 <h4>Contact</h4>
-<p>info@massmedicalcoding.com</p>
-<p>Massachusetts, USA</p>
+<p><a href="mailto:info@massmedicalcoding.com">info@massmedicalcoding.com</a></p>
+<p>United States</p>
 </div>
 
 </div>
