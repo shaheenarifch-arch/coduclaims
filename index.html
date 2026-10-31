@@ -724,6 +724,10 @@ display:none;
 .credentials{margin-top:36px;background:white;border:1px solid var(--border);border-left:4px solid #2dd4bf;border-radius:16px;padding:24px 28px;box-shadow:var(--shadow);}
 .credentials h3{margin:0 0 8px;color:var(--primary);}
 .credentials p{margin:0;}
+.credentials-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;align-items:center;margin-top:36px;}
+.credentials-wrap .credentials{margin-top:0;}
+.credentials-photo{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:20px;box-shadow:var(--shadow);background:#e6fffb;}
+@media(max-width:768px){.credentials-wrap{grid-template-columns:1fr;}}
 .faq-section .faq{max-width:860px;margin:30px auto 0;}
 .faq details{background:white;border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:12px;}
 .faq summary{cursor:pointer;font-weight:700;color:var(--primary);}
@@ -1046,9 +1050,12 @@ Designed with healthcare security, privacy, and operational accountability in mi
 
 </div>
 
+<div class="credentials-wrap">
+<img class="credentials-photo" src="https://images.unsplash.com/photo-1741707040287-7c0228b2fca7?auto=format&fit=crop&w=1200&h=900&q=80" srcset="https://images.unsplash.com/photo-1741707040287-7c0228b2fca7?auto=format&fit=crop&w=640&h=480&q=80 640w, https://images.unsplash.com/photo-1741707040287-7c0228b2fca7?auto=format&fit=crop&w=960&h=720&q=80 960w, https://images.unsplash.com/photo-1741707040287-7c0228b2fca7?auto=format&fit=crop&w=1280&h=960&q=80 1280w, https://images.unsplash.com/photo-1741707040287-7c0228b2fca7?auto=format&fit=crop&w=1600&h=1200&q=80 1600w, https://images.unsplash.com/photo-1741707040287-7c0228b2fca7?auto=format&fit=crop&w=2000&h=1500&q=80 2000w" sizes="(max-width: 768px) 100vw, 520px" width="1200" height="900" alt="Medical coding specialist smiling while reviewing charts at her computer" loading="lazy" decoding="async">
 <div class="credentials">
 <h3>Who Reviews Your Charts</h3>
 <p>Your reviews are handled by experienced medical coding professionals who work to current ICD-10-CM, CPT and HCPCS guidelines and payer rules. Every engagement includes a named point of contact, documented findings, and a review call so your team knows exactly what to fix and why.</p>
+</div>
 </div>
 
 </div>
