@@ -12,5 +12,19 @@
     "google_quality_passed": false,
     "eeat_score": 92,
     "seo_aeo_score": 8.46
+  },
+  {
+    "keyword": "Medical coding and revenue cycle complete guide for independent practices",
+    "title": "Medical Coding and Revenue Cycle Guide for Practices",
+    "description": "Medical coding and revenue cycle complete guide for independent practices: workflows, denial prevention, audits, and RCM best practices explained.",
+    "file": "medical-coding-and-revenue-cycle-complete-guide-for-independent-practices.html",
+    "date": "2026-10-31",
+    "archetype": "authority_guide",
+    "archetype_confidence": 0.97,
+    "risk_level": "medium",
+    "requires_human_review": true,
+    "google_quality_passed": true,
+    "eeat_score": 100,
+    "seo_aeo_score": 9.54
   }
 ]
