@@ -19,7 +19,7 @@
     name: (script && script.dataset.name) || "Site Assistant",
     leadEmail: (script && script.dataset.leadEmail) || "",
     poweredUrl: "https://getservices.ai",
-    formUrl: "index.html#contact",
+    formUrl: (script && script.dataset.formUrl) || "index.html#contact",
   };
   var STORE = "gs-assistant-" + cfg.tenant;
 
