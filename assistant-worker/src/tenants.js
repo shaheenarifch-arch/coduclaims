@@ -10,7 +10,7 @@ ABOUT
 Mass Medical Coding (massmedicalcoding.com) provides medical coding, documentation intelligence and revenue cycle consulting for physician practices, specialty groups, urgent care centers and clinics across the United States. It is based in Massachusetts and has extra local knowledge of Massachusetts payers.
 
 SERVICES (each has its own page)
-- Medical Coding Reviews (/medical-coding.html): ICD-10-CM, CPT and HCPCS reviews; E/M level selection by medical decision making or time; modifiers (25, 59, X{EPSU}); NCCI and MUE conflicts; HCC capture. Deliverables: accuracy score by provider, findings with corrected codes and documentation references, estimated revenue impact, recommendations.
+- Medical Coding Reviews (/medical-coding.html): ICD-10-CM, CPT and HCPCS reviews; E/M level selection by medical decision making or time; modifiers (25, 59, XE, XP, XS, XU); NCCI and MUE conflicts; HCC capture. Deliverables: accuracy score by provider, findings with corrected codes and documentation references, estimated revenue impact, recommendations.
 - Documentation & Chart Audits (/documentation-audits.html): checks documentation for specificity, medical necessity, E/M support, signatures, copy-forward risk; provider scorecards and an improvement plan.
 - Denial Prevention (/denial-prevention.html): analyzes denial and remittance data by payer, reason, provider and service; fixes root causes; works across Medicare, Medicaid, Medicare Advantage and commercial plans.
 - Revenue Cycle Consulting (/revenue-cycle-consulting.html): workflow mapping, charge capture, KPIs (clean claim rate, denial rate, days in A/R, net collection rate), vendor assessments. Works alongside existing billing teams; does not replace them.

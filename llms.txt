@@ -1,0 +1,32 @@
+# Mass Medical Coding
+
+> Medical coding reviews, documentation audits, denial prevention and revenue cycle consulting for physician practices across the United States.
+
+Mass Medical Coding helps physician practices improve coding accuracy, strengthen documentation, reduce denials and protect reimbursement. We work from records exported or shared from the practice's own systems. This website is not designed to receive protected health information (PHI).
+
+## Services
+
+- [Medical Coding Reviews](https://massmedicalcoding.com/medical-coding): ICD-10-CM, CPT and HCPCS review to improve coding quality and reimbursement accuracy
+- [Documentation Audits](https://massmedicalcoding.com/documentation-audits): provider documentation checked for accuracy, completeness and revenue impact
+- [Denial Prevention](https://massmedicalcoding.com/denial-prevention): finding coding and documentation issues before claims are submitted
+- [Revenue Cycle Consulting](https://massmedicalcoding.com/revenue-cycle-consulting): workflow analysis, coding optimization and reimbursement performance reviews
+- [Compliance Audits](https://massmedicalcoding.com/compliance-audits): preparation for payer reviews, internal audits and coding compliance initiatives
+- [Provider Education](https://massmedicalcoding.com/provider-education): documentation and coding education for physicians and clinical staff
+- [Boston and Massachusetts Practices](https://massmedicalcoding.com/boston-massachusetts): local payer knowledge including MassHealth, BCBS MA and Point32Health
+
+## Resources
+
+- [Coding Guidance](https://massmedicalcoding.com/coding-guidance)
+- [Documentation Tips](https://massmedicalcoding.com/documentation-tips)
+- [Revenue Insights](https://massmedicalcoding.com/revenue-insights)
+- [Guides](https://massmedicalcoding.com/blog/): practical guides on medical coding, billing, claim denials and revenue cycle management
+- [Medical Coding and Revenue Cycle Guide for Practices](https://massmedicalcoding.com/blog/medical-coding-and-revenue-cycle-complete-guide-for-independent-practices.html)
+- [How to Appeal Denied Insurance Claims for Medical Practices](https://massmedicalcoding.com/blog/how-to-appeal-denied-insurance-claims-for-medical-practices.html)
+
+## Company
+
+- [About Mass Medical Coding](https://massmedicalcoding.com/about)
+- [Contact and free revenue assessment](https://massmedicalcoding.com/contact)
+- [Shaheen Arif, Founder and Editor](https://massmedicalcoding.com/author/shaheen-arif/)
+- [Privacy Policy](https://massmedicalcoding.com/privacy-policy)
+- [Terms of Service](https://massmedicalcoding.com/terms)
