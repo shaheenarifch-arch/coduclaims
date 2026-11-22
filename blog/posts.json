@@ -1,5 +1,19 @@
 [
   {
+    "keyword": "medical coding services",
+    "title": "Medical Coding Services for Physician Practices: What's Included and How to Choose",
+    "description": "What medical coding services include for US physician practices: coding reviews, documentation and compliance audits, denial prevention, RCM consulting.",
+    "file": "medical-coding-services-for-physician-practices.html",
+    "date": "2026-11-22",
+    "archetype": "authority_guide",
+    "archetype_confidence": null,
+    "risk_level": "medium",
+    "requires_human_review": true,
+    "google_quality_passed": false,
+    "eeat_score": null,
+    "seo_aeo_score": null
+  },
+  {
     "keyword": "how to reduce claim denials",
     "title": "How to Reduce Claim Denials: A Front-End Checklist for Small Practices",
     "description": "How to reduce claim denials in a small practice: a front-end checklist for eligibility, prior authorization, coding, documentation and timely filing.",
