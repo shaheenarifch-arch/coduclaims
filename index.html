@@ -1169,7 +1169,7 @@ Request Assessment
 </section>
 
 <!-- careful-hands-film: health-care AI film section (above footer). Replace YOUTUBE_VIDEO_ID before merging. -->
-<section class="ch-film" id="careful-hands-film" aria-labelledby="ch-film-h" style="max-width:1100px;margin:48px auto;padding:0 16px;font-family:inherit">
+<section class="ch-film" id="careful-hands-film" hidden aria-labelledby="ch-film-h" style="max-width:1100px;margin:48px auto;padding:0 16px;font-family:inherit">
   <p style="margin:0 0 6px;color:#0F766E;font-weight:700;font-size:14px">Free 15-minute guide</p>
   <h2 id="ch-film-h" style="font-size:clamp(26px,3.4vw,34px);line-height:1.15;margin:0 0 8px;color:#0F1E1D">Careful Hands: using generative AI safely in health care</h2>
   <p style="margin:0 0 16px;color:#4B5563;max-width:70ch">An animated guide for clinicians and health-care teams: protecting patient information (PHI), checking every AI output, spotting bias, AI governance and being open with patients.</p>
@@ -1179,6 +1179,7 @@ Request Assessment
   <p style="margin:12px 0 0;font-size:14px;color:#4B5563">Captions are built into the video. This film is general education, not legal or clinical advice; always follow your organisation's policies. <a href="https://www.hhs.gov/hipaa/for-professionals/privacy/index.html" rel="noopener" target="_blank">Learn about the HIPAA Privacy Rule (HHS)</a>.</p>
   <p style="margin:8px 0 0"><a href="https://getservices.ai" style="color:#0F766E;font-weight:700">Planning safe AI in your practice? GetServices.ai can help &rarr;</a></p>
 </section>
+<script>/* careful-hands-film: section stays hidden until a real YouTube video ID replaces YOUTUBE_VIDEO_ID, then shows automatically */(function(){var s=document.getElementById("careful-hands-film"),f=s&&s.querySelector("iframe");if(f&&f.src.indexOf("YOUTUBE_VIDEO_ID")===-1){s.hidden=false;}})();</script>
 <footer>
 
 <div class="container">
